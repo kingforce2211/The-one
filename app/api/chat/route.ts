@@ -8,29 +8,34 @@ export const runtime = "nodejs";
 export async function POST(req: Request) {
   const { messages } = await req.json();
 
-  const stream = client.messages.stream({
+  // Anthropic API requires conversations to start with a user message
+  const apiMessages = [...messages];
+  while (apiMessages.length > 0 && apiMessages[0].role === "assistant") {
+    apiMessages.shift();
+  }
+
+  const encoder = new TextEncoder();
+  const sdkStream = client.messages.stream({
     model: "claude-sonnet-4-6",
     max_tokens: 1024,
     system: DISCOVERY_SYSTEM_PROMPT,
-    messages,
+    messages: apiMessages,
   });
 
-  const encoder = new TextEncoder();
-
   const readable = new ReadableStream({
-    async start(controller) {
-      for await (const chunk of stream) {
-        if (
-          chunk.type === "content_block_delta" &&
-          chunk.delta.type === "text_delta"
-        ) {
-          controller.enqueue(encoder.encode(chunk.delta.text));
-        }
-      }
-      controller.close();
+    start(controller) {
+      sdkStream.on("text", (text) => {
+        controller.enqueue(encoder.encode(text));
+      });
+      sdkStream.on("finalMessage", () => {
+        controller.close();
+      });
+      sdkStream.on("error", (err) => {
+        controller.error(err);
+      });
     },
     cancel() {
-      stream.abort();
+      sdkStream.abort();
     },
   });
 
