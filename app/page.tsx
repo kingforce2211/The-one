@@ -157,7 +157,6 @@ export default function Home() {
         background: "var(--background)",
       }}
     >
-      {/* Header */}
       <header
         style={{
           padding: "16px 24px",
@@ -207,7 +206,6 @@ export default function Home() {
         )}
       </header>
 
-      {/* Messages */}
       <div
         style={{
           flex: 1,
@@ -232,7 +230,6 @@ export default function Home() {
           <TypingIndicator />
         )}
 
-        {/* Profile CTA */}
         {readyForProfile && !isStreaming && (
           <div
             className="message-enter"
@@ -267,7 +264,6 @@ export default function Home() {
         <div ref={bottomRef} />
       </div>
 
-      {/* Input */}
       <div
         style={{
           borderTop: "1px solid var(--border)",

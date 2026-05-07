@@ -25,7 +25,6 @@ export default function SkillProfile({ profile, onRestart }: Props) {
         gap: 32,
       }}
     >
-      {/* Header */}
       <div style={{ textAlign: "center" }}>
         <div
           style={{
@@ -66,7 +65,6 @@ export default function SkillProfile({ profile, onRestart }: Props) {
         </p>
       </div>
 
-      {/* Core Skills */}
       <Section title="Core Skills" icon="⚡">
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {profile.coreSkills.map((s, i) => (
@@ -110,7 +108,6 @@ export default function SkillProfile({ profile, onRestart }: Props) {
         </div>
       </Section>
 
-      {/* Hidden Strengths */}
       <Section title="Hidden Strengths" icon="💎">
         <div
           style={{
@@ -146,7 +143,6 @@ export default function SkillProfile({ profile, onRestart }: Props) {
         </div>
       </Section>
 
-      {/* AI Opportunities */}
       <Section title="Where AI Unlocks Your Potential" icon="🚀">
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {profile.aiOpportunities.map((o, i) => (
@@ -208,7 +204,6 @@ export default function SkillProfile({ profile, onRestart }: Props) {
         </div>
       </Section>
 
-      {/* Suggested Projects */}
       <Section title="Projects to Start Today" icon="🛠️">
         <div
           style={{
@@ -260,7 +255,6 @@ export default function SkillProfile({ profile, onRestart }: Props) {
         </div>
       </Section>
 
-      {/* Affirmation */}
       <div
         style={{
           background: "linear-gradient(135deg, var(--surface), var(--surface-2))",
@@ -285,7 +279,6 @@ export default function SkillProfile({ profile, onRestart }: Props) {
         </p>
       </div>
 
-      {/* Restart */}
       <div style={{ textAlign: "center" }}>
         <button
           onClick={onRestart}
